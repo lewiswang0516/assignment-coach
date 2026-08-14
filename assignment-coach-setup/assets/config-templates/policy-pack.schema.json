@@ -1,0 +1,305 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://assignment-coach.local/policy-pack.schema.json",
+  "title": "Assignment Policy Pack",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "assignment",
+    "sources",
+    "authority_map",
+    "artifacts",
+    "rules",
+    "workflow",
+    "open_questions",
+    "host_capabilities",
+    "installation"
+  ],
+  "properties": {
+    "schema_version": { "const": "0.2" },
+    "assignment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "language", "pack_origin", "approval_status"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$" },
+        "language": { "const": "java" },
+        "pack_origin": { "enum": ["student_generated"] },
+        "approval_status": { "enum": ["unverified"] },
+        "title": { "type": "string" },
+        "course": { "type": "string" }
+      }
+    },
+    "sources": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/source" }
+    },
+    "authority_map": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/authorityEntry" }
+    },
+    "artifacts": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/artifact" }
+    },
+    "rules": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/rule" }
+    },
+    "workflow": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/stage" }
+    },
+    "open_questions": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/openQuestion" }
+    },
+    "host_capabilities": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/hostCapability" }
+    },
+    "installation": { "$ref": "#/$defs/installation" }
+  },
+  "$defs": {
+    "evidenceLocator": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source_path", "locator"],
+      "properties": {
+        "source_path": { "type": "string" },
+        "locator": {
+          "type": "string",
+          "description": "Section, page, heading, or line reference inside the source"
+        },
+        "quote": { "type": "string" }
+      }
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "type", "status"],
+      "properties": {
+        "path": { "type": "string" },
+        "type": {
+          "enum": [
+            "spec",
+            "rubric",
+            "ai_policy",
+            "skeleton",
+            "api_spec",
+            "provided_tests",
+            "build",
+            "style",
+            "submission",
+            "disclosure_guide"
+          ]
+        },
+        "status": {
+          "enum": [
+            "found",
+            "unreadable",
+            "referenced_missing",
+            "version_conflict"
+          ]
+        },
+        "version_clues": { "type": "array", "items": { "type": "string" } },
+        "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "notes": { "type": "string" }
+      }
+    },
+    "authorityEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["domain", "authoritative_source", "basis", "status"],
+      "properties": {
+        "domain": { "$ref": "#/$defs/ruleDomain" },
+        "authoritative_source": { "type": ["string", "null"] },
+        "basis": { "enum": ["explicit_statement", "default_expectation"] },
+        "status": { "enum": ["resolved", "unresolved", "conflict"] },
+        "evidence": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/evidenceLocator" }
+        }
+      }
+    },
+    "artifact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path_pattern",
+        "class",
+        "student_read",
+        "student_write",
+        "agent_read",
+        "agent_write",
+        "origin"
+      ],
+      "properties": {
+        "path_pattern": { "type": "string" },
+        "class": {
+          "enum": [
+            "official_provided_source",
+            "assessed_implementation",
+            "assessed_tests",
+            "unassessed_tests",
+            "build_style_config",
+            "submission_artifact",
+            "ai_disclosure",
+            "student_reflection",
+            "coach_learning_evidence"
+          ]
+        },
+        "student_read": { "type": "boolean" },
+        "student_write": { "type": "boolean" },
+        "agent_read": { "type": "boolean" },
+        "agent_write": { "type": "boolean" },
+        "origin": { "$ref": "#/$defs/ruleOrigin" },
+        "evidence": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/evidenceLocator" }
+        }
+      }
+    },
+    "ruleDomain": {
+      "enum": [
+        "ai_assistance",
+        "library_restrictions",
+        "api_lock",
+        "file_modification",
+        "testing",
+        "submission",
+        "style",
+        "disclosure"
+      ]
+    },
+    "ruleOrigin": {
+      "enum": [
+        "official_explicit",
+        "official_derived",
+        "instructor_policy",
+        "coach_guardrail",
+        "unknown",
+        "conflict"
+      ]
+    },
+    "rule": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "domain",
+        "value",
+        "status",
+        "scope",
+        "origin",
+        "evidence",
+        "enforcement",
+        "explanation"
+      ],
+      "properties": {
+        "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$" },
+        "domain": { "$ref": "#/$defs/ruleDomain" },
+        "value": {},
+        "status": { "enum": ["resolved", "unresolved", "conflicting"] },
+        "scope": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "tasks": { "type": "array", "items": { "type": "string" } },
+            "paths": { "type": "array", "items": { "type": "string" } },
+            "stages": { "type": "array", "items": { "type": "string" } },
+            "whole_assignment": { "type": "boolean" }
+          }
+        },
+        "origin": { "$ref": "#/$defs/ruleOrigin" },
+        "evidence": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/evidenceLocator" }
+        },
+        "enforcement": { "enum": ["hook", "helper", "instruction", "none"] },
+        "explanation": { "type": "string", "minLength": 1 }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "origin": { "enum": ["official_explicit", "official_derived"] }
+            }
+          },
+          "then": {
+            "properties": { "evidence": { "minItems": 1 } }
+          }
+        }
+      ]
+    },
+    "stage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "title", "gate"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$" },
+        "title": { "type": "string" },
+        "template": { "type": "string" },
+        "gate": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["description"],
+          "properties": {
+            "description": { "type": "string" },
+            "required_artifacts": {
+              "type": "array",
+              "items": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    "openQuestion": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "question", "why_it_matters", "blocking"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$" },
+        "question": { "type": "string" },
+        "why_it_matters": { "type": "string" },
+        "blocking": { "type": "boolean" },
+        "answer": { "type": "string" },
+        "answered_at": { "type": "string", "format": "date-time" }
+      }
+    },
+    "hostCapability": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["host", "os", "capability", "available"],
+      "properties": {
+        "host": { "enum": ["claude_code", "codex"] },
+        "os": { "enum": ["macos", "windows"] },
+        "capability": {
+          "enum": [
+            "prompt_capture_hook",
+            "pre_write_deny_hook",
+            "post_response_hook",
+            "session_start_hook",
+            "helper_execution"
+          ]
+        },
+        "available": { "type": "boolean" },
+        "probe_notes": { "type": "string" }
+      }
+    },
+    "installation": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "installed_at": { "type": "string", "format": "date-time" },
+        "bootstrap_skill_version": { "type": "string" },
+        "hosts_installed": {
+          "type": "array",
+          "items": { "enum": ["claude_code", "codex"] }
+        },
+        "status": { "enum": ["complete", "incomplete"] }
+      }
+    }
+  }
+}
