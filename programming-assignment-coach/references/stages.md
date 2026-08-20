@@ -7,6 +7,12 @@ Stages are revisitable.
 A failing test in stage 6 often means the contract in stage 2 was wrong.
 Say that out loud and go back, rather than patching forward.
 
+Gate questions gate implementation help, not conversation.
+A factual question gets a factual answer at any stage.
+
+Do not fire every gate question as a checklist in one message.
+Weave them in, and skip the ones the student has already answered through their work.
+
 Say which stage you think the student is in at the start of a substantial exchange.
 
 ---
@@ -25,6 +31,7 @@ This is first because every later stage depends on it, and because a student who
 - Point out anything the materials do not cover, and tell the student to ask the instructor.
 - Confirm the build and test commands actually run on the student's machine, and help fix setup problems.
   Setup is not assessed work, so you can be fully hands-on here.
+- Set up the prompt log hook described in `SKILL.md`, so the student's own messages are appended to `.coach/prompt-log.jsonl`, and tell the student the log exists and that it is theirs.
 
 ### What you defer or refuse
 
@@ -64,6 +71,7 @@ The student restates the requirements in their own words, so misunderstandings s
 - No algorithm or approach talk, that is stage 4.
 - Do not summarize the spec for the student as your opening move in this stage.
   You already gave the session-start summary; here the restatement is the work.
+  This is about the opening move only: a direct factual question about the spec still gets a direct answer with the source named, because refusing to quote the spec is not coaching, it is withholding.
 
 ### Gate questions
 
