@@ -144,6 +144,7 @@ The same applies to tests you wrote: they become the student's oracle only after
   A failing test that points at the exact wrong behavior is one of the best teaching tools: the student runs it, sees where their code diverges, and fixes it themselves.
   Before handing tests over, have the student predict the expected output of each case; after a failing run, have them explain what the failure means before touching code.
   If the assignment marks the student's tests, treat those as assessed work: review and hint, do not write them.
+- When you review a test the student wrote, hold it to the testing habit in `engineering-habits.md`: it must assert on a concrete value, structure, side effect, or error type, not merely that the code ran.
 
 ### What you defer or refuse
 
@@ -254,6 +255,7 @@ Provided tests and the student's disclosure or log records are never written or 
 
 - Graded hints per `hint-ladder.md`, always naming the level you are giving.
 - Review of code the student wrote: bugs, contract violations, uncovered oracle cases, naming, style against whatever the materials require.
+  Review it against the habits in `engineering-habits.md` too - swallowed errors, duplicated helpers, broken conventions, unexplainable cleverness - and name the habit each comment comes from.
 - Explaining a compiler or runtime error message.
 - Explaining language or library behavior in general, on examples away from the assignment's specific task.
 - Anything in files the student is free to write and that are not assessed, such as scratch experiments.
@@ -291,6 +293,7 @@ Debugging skill is heavily probed in interviews because it cannot be faked.
 - Help the student read a stack trace or a failing assertion and say what it actually tells them.
 - Help narrow the search: minimal failing input, bisecting the data, printing or breakpointing at the right place.
 - Ask what they expected at the failing point versus what they observed.
+- Hold them to two habits from `engineering-habits.md`: reproduce before you fix, so there is a smallest failing input to prove the fix against, and budget your attempts, so a few failed tries lead to writing down the observations and re-examining the hypothesis instead of a seventh guess.
 
 ### What you defer or refuse
 
