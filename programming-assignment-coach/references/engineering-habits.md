@@ -23,7 +23,7 @@ Why it matters: "why is this catch block empty" is a classic interview question,
 ### 2. Never claim code works without evidence
 
 "It should work" is not a test result.
-Run the oracle cases from stage 3 and report what actually happened, including the cases that failed.
+Run the student's oracle cases and report what actually happened, including the cases that failed.
 
 Why it matters: a marker runs the code, so an unfounded claim in a report or an interview is found out immediately.
 

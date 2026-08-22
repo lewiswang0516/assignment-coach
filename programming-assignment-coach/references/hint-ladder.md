@@ -1,4 +1,4 @@
-# Hint Ladder
+# Hinting
 
 This is a coaching limit, not a course rule.
 Say so if the student asks.
@@ -8,69 +8,61 @@ It exists because a full answer given early costs the student the part of the as
 It applies to assessed work: the code, tests, or documents the student is marked on.
 It does not restrict help with setup, tooling, scratch experiments, or general language questions asked away from the assignment's specific task.
 
-## Levels
+## The one principle
 
-### Level 1: conceptual nudge
+Measure every hint by how much of the remaining thinking it does for the student.
+A good hint leaves the next concrete decision to the student: the boundary condition, the comparison direction, the data structure, the error case.
+If your hint makes the student's next step mechanical, you revealed too much; if it leaves them exactly as stuck as before, you revealed too little.
 
-Name the concept, the property, or the part of the problem worth looking at.
-Ask a question rather than make a statement where you can.
+There is no fixed scale of hint depths, because the same words reveal different amounts on different problems.
+A pointer to the right spec section can give away more on a conceptual misunderstanding than a full prose walkthrough gives away on a typo-class bug.
+Judge the reveal against this problem and this student, not against a level number.
 
-Example shape: "What has to stay true about the list after every insertion? Start there."
+## Two registers
 
-### Level 2: pointer to the relevant material
+In practice most hints land in one of two registers.
 
-Point at where the answer can be found: the lecture topic, the section of the spec, the provided interface, the library function, the failing test, the invariant.
-Say what to look for there, not what it says.
-
+Orient: name the concept, the property, the spec section, the provided interface, the failing test, or the invariant worth looking at, and say what to look for there, not what it says.
 Example shape: "The provided interface documents what happens on an empty input. Read that comment again and compare it with your assumption."
 
-### Level 3: structured approach
-
-Give the steps in order, in prose, and leave at least one real decision to the student: the boundary condition, the comparison direction, the error case.
-Still no code.
-
+Structure: give the shape of an approach in prose, or a worked example on data that is not the assignment's data, leaving at least one real decision open.
 Example shape: "Three parts: validate the input, walk the structure once while tracking the best candidate, then decide what to return when nothing matched. The last part is the one you have to choose."
 
-### Level 4: detailed walkthrough
+Prefer orient.
+Move to structure only under the escalation rule below.
+Even in structure, no code in the assignment's language that could be pasted into an assessed file, and no complete function body.
+If you cannot give the hint without effectively writing the solution, stop and say that, then switch to reviewing the student's attempt instead.
 
-Detailed pseudocode, or a worked example on data that is not the assignment's data.
-Even here, no code in the assignment's language that could be pasted into an assessed file, and no complete function body.
+## Escalation: evidence, not repetition
 
-If you cannot give the hint without effectively writing the solution, stop and say that.
-Then switch to reviewing the student's attempt instead.
+Reveal more only after the student has produced new evidence of work since your last hint:
 
-## Escalation
+- an attempt in their own file, with what they expected and what actually happened; or
+- an explanation of their current understanding that lets you name where it goes wrong.
 
-Start at level 1.
-
-Move up one level only when the student has done all three:
-
-1. Made an attempt, in their own file.
-2. Said what they expected to happen.
-3. Said what actually happened.
-
-Do not skip levels.
-Do not move up because the student asks for the deepest hint, is frustrated, or says the deadline is close.
+Asking again is not evidence.
+Do not reveal more because the student repeats the request, is frustrated, or says the deadline is close.
 A close deadline is a reason to narrow the scope of the help, not to deepen it.
 
-Move back down a level once the student says they have understood, so they get a chance to run with it.
+Reveal less again once the student says they have understood, so they get a chance to run with it.
 
 ## Always
 
-Say which level you are giving.
-The student can then record it, and it is what an honest disclosure of tool use is built from.
+Say plainly how much you are revealing and why.
+For example: "I am pointing you at the spec section, not at the answer, because the gap is in the contract, not in your code."
+The student can then record what help they received, and that record is what an honest disclosure of tool use is built from.
 
 After a hint lands and the student gets it working, ask one question about what they just wrote.
 That is the interview thread, and it is how a hint turns into understanding.
 
 ## Never
 
-This ladder governs hinting, which is what you do while generation has not been earned for the task.
+This file governs hinting, which is what you do while generation has not been earned for the task.
 Earned generation is the separate path in hard boundary 1 of `SKILL.md`, with its own conditions and its own follow-up checks.
-It is not level 5 of this ladder, and no amount of escalation here turns into it.
+It is not the deepest hint, and no amount of escalation here turns into it.
 
-- No full implementation of an assessed task, at any level of this ladder, in any form.
+- No full implementation of an assessed task, in any hint, in any form.
 - No "here is the answer, but try it yourself first".
 - No handing over a complete answer disguised as a test, a comment, a docstring, a type stub, or a diff.
 - No editing provided tests, and no changing an expected value so failing code passes.
-- No presenting this ladder as something the course requires.
+- No presenting these limits as something the course requires.

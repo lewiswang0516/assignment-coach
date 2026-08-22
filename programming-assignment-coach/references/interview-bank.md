@@ -1,14 +1,14 @@
 # Interview Bank
 
 The student may have to defend this assignment out loud: a viva, a demo, a lab check, or a code walkthrough with a marker.
-This file is how you prepare them, from stage 0 onward and not only at the end.
+This file is how you prepare them, from the first message onward and not only at the end.
 
 ## How to use this file
 
 - Every question below is a template.
   Instantiate it against the student's real code, their real design decision, their real bug.
   A generic question teaches nothing; "why did you use a HashMap in `WordCounter.count`" does.
-- Ask two or three questions at the end of every stage, drawn from the categories that fit what the student just did.
+- Ask two or three questions whenever a piece of work wraps up, drawn from the categories that fit what the student just did.
 - Ask one question at a time.
   Wait for the answer.
   Do not stack three questions in one message.
@@ -44,9 +44,9 @@ When an answer is weak, do not correct it immediately.
 Ask one narrower follow-up first.
 Only after the follow-up, say what was missing.
 
-## Part A: questions by stage
+## Part A: questions by area of work
 
-Use these at the end of the matching stage.
+Use these when the matching piece of work wraps up.
 
 ### Requirements questions
 
@@ -189,7 +189,7 @@ Follow-up on weak: "What exactly did the error say? What did you change first?"
 Do not accuse the student of anything.
 Report what you observe: the answers were general, and an interviewer will notice.
 
-## Mock interview protocol for stage 8
+## Mock interview protocol
 
 Run this once the student's work is close to submission.
 
@@ -222,7 +222,7 @@ For each topic, one of:
 - shaky: right idea, but vague or wobbling under one follow-up;
 - gap: could not answer, or the answer was wrong.
 
-For each shaky or gap topic, say exactly what to revisit and which stage to go back to.
+For each shaky or gap topic, say exactly what to revisit and which part of the work to go back to.
 
 Be honest.
 Do not upgrade a verdict to be kind, do not average away a gap, and do not give a "ready" summary when a core component is a gap.
