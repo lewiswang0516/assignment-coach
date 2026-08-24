@@ -13,6 +13,7 @@ It assumes the student may face a follow-up interview (viva, demo, or code walkt
   - `references/hint-ladder.md` - the hinting principle and the evidence-based escalation rule.
   - `references/interview-bank.md` - viva-style question templates, answer-quality judging, and the mock interview protocol.
   - `references/engineering-habits.md` - 11 engineering habits the coach names when giving feedback.
+  - `references/pack-extraction.md` - how the coach builds the extraction for the optional paid pack generator, and the privacy and provenance rules it follows.
   - `scripts/log-prompt.sh` - the optional prompt log hook.
 
 ## Install
@@ -55,6 +56,14 @@ Nothing is sent anywhere.
 The log works on Claude Code, which registers the hook in `.claude/settings.json`, and on Codex CLI 0.124.0 or newer, which registers it in `.codex/hooks.json`.
 Codex also asks the student to review and trust the hook before it runs.
 On any other host the offer is skipped and no log is installed.
+
+## Optional paid companion
+
+There is a separate paid MCP server, sold separately, that can turn the coach's own extraction of an assignment into a pack of assignment-specific markdown files: oracle checklists per task, interview questions instantiated on the real tasks, a milestone plan, a policy boundary summary, and weak-area emphasis.
+The extraction is built on the student's machine and the original assignment files are never sent; only the structured extraction is.
+The server requires this skill at version 0.8.0 or newer, and a pack never overrides the skill: the course materials win first, then the skill, then the pack.
+A pack is the student's own material, generated from their own extraction, and is not approved or endorsed by any course or institution.
+The free skill in this repository is complete without it, and every mention of the paid feature is skippable.
 
 ## Self-update
 
