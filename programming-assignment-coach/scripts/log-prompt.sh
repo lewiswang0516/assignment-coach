@@ -1,5 +1,7 @@
 #!/bin/sh
 # UserPromptSubmit hook: append the student's prompt to .coach/prompt-log.jsonl
+# Reads the hook payload as JSON on stdin. Claude Code and Codex CLI both carry
+# the prompt text in the "prompt" field and the working directory in "cwd".
 # Logs the redacted prompt field only. Reports failures without printing prompts.
 
 if ! command -v python3 >/dev/null 2>&1; then
@@ -26,6 +28,15 @@ def redact(text):
         text = re.sub(pattern, replacement, text, flags=re.DOTALL if "PRIVATE KEY" in pattern else 0)
     return text
 
+PROMPT_FIELDS = ("prompt",)
+
+def detect_host(payload):
+    if isinstance(payload.get("turn_id"), str):
+        return "codex"
+    if isinstance(payload.get("hook_event_name"), str):
+        return "claude-code"
+    return "unknown"
+
 try:
     payload = json.load(sys.stdin)
 except (json.JSONDecodeError, OSError):
@@ -34,9 +45,20 @@ except (json.JSONDecodeError, OSError):
 if not isinstance(payload, dict):
     fail("hook input is not an object")
 
-prompt = payload.get("prompt")
-if not isinstance(prompt, str):
-    fail("hook input has no string prompt")
+event = payload.get("hook_event_name")
+if isinstance(event, str) and event != "UserPromptSubmit":
+    fail("hook input is for " + event + ", not UserPromptSubmit")
+
+prompt = None
+for field in PROMPT_FIELDS:
+    value = payload.get(field)
+    if isinstance(value, str):
+        prompt = value
+        break
+if prompt is None:
+    fail("hook input has no string prompt in any known field: " + ", ".join(PROMPT_FIELDS))
+
+host = detect_host(payload)
 
 project_dir = payload.get("cwd")
 if not isinstance(project_dir, str) or not os.path.isabs(project_dir):
@@ -52,6 +74,7 @@ try:
     log_path = os.path.join(coach_dir, "prompt-log.jsonl")
     line = json.dumps(
         {"ts": datetime.now().astimezone().isoformat(timespec="seconds"),
+         "host": host,
          "prompt": redact(prompt)},
         ensure_ascii=False,
     )

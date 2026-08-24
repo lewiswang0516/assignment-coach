@@ -1,6 +1,6 @@
 ---
 name: programming-assignment-coach
-version: 0.8.0
+version: 0.9.0
 description: Coach a student through a programming assignment instead of writing it for them. Use when a student asks for help with a programming assignment, homework, coursework, lab, or marked programming project, wants tutoring or coaching through the work, wants their own code reviewed and questioned, or wants to prepare for an assignment interview, viva, demo, or code walkthrough.
 ---
 
@@ -64,9 +64,15 @@ Run this check once per session, not once per message.
 During policy and setup, offer an optional local prompt log.
 Do not install or enable it without the student's explicit agreement.
 
-The automatic log depends on the host agent running the `UserPromptSubmit` hook from the project's `.claude/settings.json`, which Claude Code does.
-Before offering the log, check whether the current host supports that hook.
-If it does not, for example Codex or another agent that does not read `.claude/settings.json`, tell the student that the automatic prompt log is not available in this environment, skip the offer, and continue coaching without a log.
+The automatic log depends on the host agent running a `UserPromptSubmit` hook.
+Two hosts support this, each through its own configuration file:
+
+- Claude Code reads the project's `.claude/settings.json`.
+- Codex CLI 0.124.0 or newer reads the project's `.codex/hooks.json`.
+
+Before offering the log, work out which of these applies.
+Identify the host you are running in, and for Codex check the version with `codex --version`, since releases before 0.124.0 have no stable hooks engine.
+If neither mechanism is available, tell the student that the automatic prompt log is not available in this environment, skip the offer, and continue coaching without a log.
 Do not install the hook, do not create the enable marker, and do not fall back to logging prompts yourself.
 
 Before asking, explain all of these points plainly:
@@ -76,18 +82,33 @@ Before asking, explain all of these points plainly:
 - The hook redacts common credential-shaped values before writing, but no filter can guarantee that every secret or piece of personal information will be detected.
 - The log belongs to the student and is not proof of authorship or academic integrity.
 - Deleting `.coach/prompt-log-enabled` pauses logging immediately.
-- Removing the hook entry from `.claude/settings.json` uninstalls it.
+- Removing the hook entry from the host's hook configuration file uninstalls it.
 
 If the student does not opt in, continue coaching without a prompt log and do not ask again this session.
 
-If the student opts in, install the hook by adding an entry to the project's `.claude/settings.json`.
+If the student opts in, install the hook into the configuration file for the current host.
 Create that file if it does not exist, and merge into it without destroying existing settings or adding a duplicate entry.
 The hook calls this skill's `scripts/log-prompt.sh` by its absolute path.
-The shape to add is:
+
+Both hosts take the same entry shape.
+In Claude Code, add it to `.claude/settings.json`:
 
 ```json
 {"hooks": {"UserPromptSubmit": [{"hooks": [{"type": "command", "command": "<absolute path to scripts/log-prompt.sh>"}]}]}}
 ```
+
+In Codex CLI, add the same structure to `.codex/hooks.json` at the project root:
+
+```json
+{"hooks": {"UserPromptSubmit": [{"hooks": [{"type": "command", "command": "<absolute path to scripts/log-prompt.sh>"}]}]}}
+```
+
+Codex will not run a newly written hook until the student reviews and trusts it.
+After writing the file, tell the student to open the `/hooks` command in Codex and approve this hook, and say that logging starts only once they have done so.
+Do not try to pre-approve the hook by editing Codex trust state, and never suggest `--dangerously-bypass-hook-trust`.
+
+The script reads the payload as JSON on stdin and takes the prompt text from the `prompt` field, which both hosts provide.
+It records the detected host in each log entry.
 
 Create `.coach/prompt-log-enabled` only after consent.
 Keep `.coach/` out of version control: add `.coach/` to `.git/info/exclude` when the project is a Git repository, or create `.coach/.gitignore` containing `*` otherwise.
