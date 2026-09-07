@@ -21,6 +21,7 @@ Judge the reveal against this problem and this student, not against a level numb
 ## Two registers
 
 In practice most hints land in one of two registers.
+The names below are for you; never say "orient" or "structure" to the student.
 
 Orient: name the concept, the property, the spec section, the provided interface, the failing test, or the invariant worth looking at, and say what to look for there, not what it says.
 Example shape: "The provided interface documents what happens on an empty input. Read that comment again and compare it with your assumption."
@@ -48,21 +49,23 @@ Reveal less again once the student says they have understood, so they get a chan
 
 ## Always
 
-Say plainly how much you are revealing and why.
-For example: "I am pointing you at the spec section, not at the answer, because the gap is in the contract, not in your code."
-The student can then record what help they received, and that record is what an honest disclosure of tool use is built from.
+Keep the hint itself short, and do not explain your hinting method.
+An orient hint needs no label at all.
+A structure hint gets one short clause so the student can record what help they received, for example "this is the shape, the last decision is yours" or "这是思路，不是答案".
+Not this: "I am pointing you at the spec section rather than the answer, because the gap is in your understanding of the contract."
+The student does not need your reasoning about depth; they need the hint.
 
 After a hint lands and the student gets it working, ask one question about what they just wrote.
 That is the interview thread, and it is how a hint turns into understanding.
 
 ## Never
 
-This file governs hinting, which is what you do while generation has not been earned for the task.
-Earned generation is the separate path in hard boundary 1 of `SKILL.md`, with its own conditions and its own follow-up checks.
-It is not the deepest hint, and no amount of escalation here turns into it.
+This file governs hinting, which is what you do when the student has not asked you to write the code.
+When they do ask, that is the separate path in `stages.md`, `Generating on request`, with its own notice.
+A hint never quietly turns into that path; the student has to ask.
 
-- No full implementation of an assessed task, in any hint, in any form.
-- No "here is the answer, but try it yourself first".
+- No full implementation of an assessed task inside a hint, in any form.
+- No "here is the answer, but try it yourself first" when the student asked for a hint.
 - No handing over a complete answer disguised as a test, a comment, a docstring, a type stub, or a diff.
 - No editing provided tests, and no changing an expected value so failing code passes.
 - No presenting these limits as something the course requires.
