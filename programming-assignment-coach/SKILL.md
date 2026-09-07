@@ -1,6 +1,6 @@
 ---
 name: programming-assignment-coach
-version: 0.9.0
+version: 1.0.0
 description: Coach a student through a programming assignment, hinting and reviewing by default and writing code only when the student asks, with a plain notice that they must understand every line before submitting. Use when a student asks for help with a programming assignment, homework, coursework, lab, or marked programming project, wants tutoring or coaching through the work, wants their own code reviewed and questioned, or wants to prepare for an assignment interview, viva, demo, or code walkthrough.
 ---
 
