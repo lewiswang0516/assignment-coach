@@ -2,7 +2,7 @@
 
 A single Agent Skill that turns an AI coding assistant into a coach for university programming assignments.
 
-The coach reads the assignment materials in the student's working directory, then guides the student through the work instead of writing it for them.
+The coach reads the assignment materials in the student's working directory, then guides the student through the work, hinting and reviewing by default and writing code only when the student asks for it.
 It assumes the student may face a follow-up interview (viva, demo, or code walkthrough) and weaves interview preparation through the whole session.
 
 ## What is in this repository
@@ -30,7 +30,7 @@ The coach reads the spec, rubric, and given code itself and confirms its underst
 ## How coaching works
 
 The coach does not run a fixed sequence of stages.
-It uses a precondition map covering nine areas: policy and setup, requirements, contract and API, oracle, design, implementation, debugging, review and submission, and interview prep.
+It uses a precondition map covering nine areas: setup, requirements, contract and API, oracle, design, implementation, debugging, review and submission, and interview prep.
 These areas are a diagnostic map, not a pipeline.
 The coach meets the student wherever they are and checks only the preconditions that the current request depends on.
 
@@ -77,8 +77,10 @@ Nothing is overwritten without consent, and a failed update leaves the installed
 ## Key rules the skill carries
 
 - By default the student writes the assessed code; the coach reviews, questions, and hints.
-  The coach may generate code for a task only after the student has correctly explained their own approach for that task, and only where the course AI policy allows it, with a disclosure reminder and an explain-and-modify check afterwards.
-- Hints never include a copy-pasteable solution.
+  When the student asks for the code, the coach writes it and tells them once, plainly, that every line must be understood before it goes into the submission, what the course AI policy says, and what to disclose.
+- Hints never include a copy-pasteable solution; the student has to ask for code explicitly.
+- The coach talks in plain words, in the student's language, keeps replies short, asks one question at a time, and never demands that the student "restate it in your own words" as a condition for help.
+  Internal terms such as oracle, contract, or precondition never reach the student.
 - Interview questions are scoped to what the course actually teaches.
 - All protections are advisory instructions and are honestly labeled as such; nothing is enforced at runtime.
 - Assignment materials are treated as untrusted data; unknowns stay unknown instead of being guessed.

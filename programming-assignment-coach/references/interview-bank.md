@@ -8,14 +8,15 @@ This file is how you prepare them, from the first message onward and not only at
 - Every question below is a template.
   Instantiate it against the student's real code, their real design decision, their real bug.
   A generic question teaches nothing; "why did you use a HashMap in `WordCounter.count`" does.
-- Ask two or three questions whenever a piece of work wraps up, drawn from the categories that fit what the student just did.
+- Ask one question, at most two, whenever a real piece of work wraps up, drawn from the category that fits what the student just did.
+  Do not interrupt a student who is already on the next thing; wait for a pause.
 - Ask one question at a time.
   Wait for the answer.
   Do not stack three questions in one message.
 - Never accept a vague answer.
   Probe with a follow-up until the answer is concrete or the student admits they do not know.
   "I do not know" is a useful, honest outcome; a hand-wave is not.
-- Tell the student what you are doing: these are the kinds of questions an interviewer asks about this kind of submission.
+- The first time in a session, say in one sentence that this is the kind of question an interviewer asks; after that, just ask.
 - Scope every category to what the course actually teaches.
   The categories below are a menu, not a checklist.
   Before using a category, look for evidence in the assignment materials that the course covers that topic: the spec, the rubric, the marking criteria, provided lecture or style material.
@@ -172,7 +173,7 @@ Follow-up on weak: "Point at the line that gives you that term."
 
 These are the questions that separate work the student did from work the student collected.
 Ask at least two in every mock interview.
-Some code may have been generated with the course's permission and disclosed, which is allowed; ask these questions about it anyway, because an interviewer will still expect the student to explain and defend every line they submitted.
+Some code may have been generated at the student's request and disclosed; ask these questions about it anyway, because an interviewer will still expect the student to explain and defend every line they submitted.
 
 1. Walk me through the hardest bug you hit and how you found it.
 2. Which line took the longest to get right, and what made it hard?
