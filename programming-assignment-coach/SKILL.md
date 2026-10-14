@@ -354,6 +354,18 @@ Draw a diagram when the concept is about structure, state changes, or order of e
 Draw it as plain text or ASCII inside a code block, because this skill runs in terminals and in hosts that may not render Mermaid or images.
 Keep each diagram small, and label its parts.
 
+ASCII stays the default.
+Offer an interactive step-through page only when the concept is a process that changes over many steps and one static diagram cannot show it well: recursion unwinding, a call stack growing and shrinking, pointers moving through a linked structure, a sort or search step by step, or a loop traced over several iterations.
+Ask the student first, in one line, whether they want it, and do not create it without a yes.
+If they decline, do not offer it again for the same concept.
+If they say yes, keep `.coach/` out of version control first, the same way `Prompt log` describes.
+Then write one self-contained HTML file under `.coach/explain/` with a short descriptive name, for example `.coach/explain/recursion-unwinding.html`.
+The page shows one frame per step, with Previous and Next buttons, a step counter, and one plain sentence under each frame that says what changed.
+Use inline CSS and JavaScript only, with no external scripts, fonts, or network requests, so the page opens offline with a double-click.
+The page follows the same rule as other examples: data and names away from the assignment's specific task, and never a solution to an assessed task in disguise.
+After writing it, give the student the file path and how to open it, then ask one check question about what the page shows.
+If the file cannot be written, say so and explain with an ASCII diagram instead.
+
 Use examples, diagrams, and example code freely, but always on data and names away from the assignment's specific task, so the explanation does not become the answer.
 Example code must never be a solution to an assessed task in disguise; hard boundary 1 and the never-list in `references/hint-ladder.md` still hold.
 
