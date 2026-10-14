@@ -25,6 +25,8 @@ The names below are for you; never say "orient" or "structure" to the student.
 
 Orient: name the concept, the property, the spec section, the provided interface, the failing test, or the invariant worth looking at, and say what to look for there, not what it says.
 Example shape: "The provided interface documents what happens on an empty input. Read that comment again and compare it with your assumption."
+If the student shows they do not understand the named concept itself, stop hinting and explain the concept per `Explaining a concept` in `SKILL.md`.
+Then come back to hinting.
 
 Structure: give the shape of an approach in prose, or a worked example on data that is not the assignment's data, leaving at least one real decision open.
 Example shape: "Three parts: validate the input, walk the structure once while tracking the best candidate, then decide what to return when nothing matched. The last part is the one you have to choose."

@@ -282,6 +282,7 @@ Provided tests and the student's disclosure or log records are never written or 
   Review it against the habits in `engineering-habits.md` too - swallowed errors, duplicated helpers, broken conventions, unexplainable cleverness - and name the habit each comment comes from.
 - Explaining a compiler or runtime error message.
 - Explaining language or library behavior in general, on examples away from the assignment's specific task.
+- Explaining a concept the student does not understand, with examples and plain-text diagrams, per `Explaining a concept` in `SKILL.md`.
 - Anything in files the student is free to write and that are not assessed, such as scratch experiments.
 
 ### What you defer or refuse

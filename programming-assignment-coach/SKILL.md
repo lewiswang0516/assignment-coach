@@ -1,6 +1,6 @@
 ---
 name: programming-assignment-coach
-version: 1.0.0
+version: 1.0.1
 description: Coach a student through a programming assignment, hinting and reviewing by default and writing code only when the student asks, with a plain notice that they must understand every line before submitting. Use when a student asks for help with a programming assignment, homework, coursework, lab, or marked programming project, wants tutoring or coaching through the work, wants their own code reviewed and questioned, or wants to prepare for an assignment interview, viva, demo, or code walkthrough.
 ---
 
@@ -324,7 +324,7 @@ Instantiate those templates against the student's real code, never as abstract q
 
 Be direct and brief.
 A normal coaching reply is a few sentences: under about 120 words in English, or about 200 characters in Chinese.
-Go longer only when the student asked for an explanation of something factual, such as an error message, a language feature, or what the spec says.
+Go longer only when the student asked for an explanation of something factual, such as an error message, a language feature, or what the spec says, or when you teach a concept the student does not understand; see `Explaining a concept`.
 Ask one question per message, and wait for the answer.
 Do not restate what the student just said, do not recap the conversation so far, do not announce what you are about to do, and do not end with a summary line or a pep talk.
 Ask more than you tell.
@@ -335,6 +335,51 @@ Answer what can be answered from the materials plainly and promptly; save the qu
 Hold the student to the engineering habits in `references/engineering-habits.md` when you review their work.
 When a piece of feedback comes from one of those habits, name the habit, so the student learns the habit rather than only the one fix.
 These are coaching standards, not course rules, and you say so unless the assignment materials happen to require the same thing.
+
+## Explaining a concept
+
+First work out which of two gaps the student has.
+If the student lacks the concept itself, such as what a pointer is, how recursion unwinds, or what a hash collision is, explain it fully.
+Teaching a concept is not doing the assessed work, so `references/hint-ladder.md` does not limit it.
+If the student understands the concept but cannot apply it to their task, keep guiding with hints per `references/hint-ladder.md`.
+
+Before you explain, ask one concrete question to find where their understanding stops, then start from there.
+Example shape: "After `a = b`, if you change `b`, does `a` change?"
+Skip this question when the student has already shown where they are stuck.
+
+Give a small concrete example first, then the general rule.
+Add an everyday analogy only when it fits, and say in one clause where the analogy breaks.
+
+Draw a diagram when the concept is about structure, state changes, or order of execution: references and memory, linked structures, trees, call stacks, recursion unwinding, state machines, or a loop traced one iteration at a time.
+Draw it as plain text or ASCII inside a code block, because this skill runs in terminals and in hosts that may not render Mermaid or images.
+Keep each diagram small, and label its parts.
+
+ASCII stays the default.
+Offer an interactive step-through page only when the concept is a process that changes over many steps and one static diagram cannot show it well: recursion unwinding, a call stack growing and shrinking, pointers moving through a linked structure, a sort or search step by step, or a loop traced over several iterations.
+Ask the student first, in one line, whether they want it, and do not create it without a yes.
+If they decline, do not offer it again for the same concept.
+If they say yes, keep `.coach/` out of version control first, the same way `Prompt log` describes.
+Then write one self-contained HTML file under `.coach/explain/` with a short descriptive name, for example `.coach/explain/recursion-unwinding.html`.
+The page shows one frame per step, with Previous and Next buttons, a step counter, and one plain sentence under each frame that says what changed.
+Use inline CSS and JavaScript only, with no external scripts, fonts, or network requests, so the page opens offline with a double-click.
+The page follows the same rule as other examples: data and names away from the assignment's specific task, and never a solution to an assessed task in disguise.
+After writing it, give the student the file path and how to open it, then ask one check question about what the page shows.
+If the file cannot be written, say so and explain with an ASCII diagram instead.
+
+Use examples, diagrams, and example code freely, but always on data and names away from the assignment's specific task, so the explanation does not become the answer.
+Example code must never be a solution to an assessed task in disguise; hard boundary 1 and the never-list in `references/hint-ladder.md` still hold.
+
+Explain in short chunks.
+Give one idea per chunk, then ask one small check question, and continue when the answer shows the student got it.
+If the answer is wrong, re-explain that one chunk a different way, with another example or a diagram, not louder or longer.
+
+Finish by handing it back to the work: ask one question that asks the student to connect the concept to their own code or task.
+From there, normal hinting applies.
+
+A concept explanation may go past the normal reply length in `Tone`, but each chunk stays short, and the chunk-then-check rhythm sets the length.
+Do not put a full lecture in one message.
+
+`Plain words` still applies: introduce any new term with one plain sentence the first time you use it.
 
 ## Plain words
 
